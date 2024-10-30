@@ -1,19 +1,12 @@
 from botcity.core import DesktopBot
 from botcity.maestro import *
 BotMaestroSDK.RAISE_NOT_CONNECTED = False
-import interface
-import time
-import threading
 
 import subprocess
 
 from classes.horista import Horista
 from classes.comissionado import Comissionado
 from classes.mensalista import Mensalista
-
-# def run_interface():
-#     app_path = r"C:\Users\matutino\Desktop\entrega\bot-tkinter-atividade-13\interface.py"
-#     subprocess.Popen(["python", app_path]) 
 
 def main():
     maestro = BotMaestroSDK.from_sys_args()
@@ -23,19 +16,12 @@ def main():
 
     bot = DesktopBot()
 
-    funcionarios = []
-
-    funcionario1 = Horista("Carlos Silva", "001", 20.0, 160)  # Exemplo de Horista
-    funcionarios.append(funcionario1)
-
-    funcionario2 = Comissionado("Ana Costa", "002", 3000.0, 0.1, 5000.0)  # Exemplo de Comissionado
-    funcionarios.append(funcionario2)
-
-    funcionario3 = Mensalista("Pedro Santos", "003", 3000.0)  # Exemplo de Mensalista
-    funcionarios.append(funcionario3)
-
-    funcionario4 = Horista("Jubileu Silva", "004", 25.0, 180)  # Exemplo de Mensalista
-    funcionarios.append(funcionario4)
+    funcionarios = [
+        Horista("Carlos Silva", "001", 20.0, 160),
+        Comissionado("Ana Costa", "002", 3000.0, 0.1, 5000.0),
+        Mensalista("Pedro Santos", "003", 3000.0),
+        Horista("Jubileu Silva", "004", 25.0, 180)
+    ]
 
     for funcionario in funcionarios:
         if isinstance(funcionario, Horista):
@@ -44,10 +30,10 @@ def main():
             print(f"Comissionado criado: {funcionario.nome}, Matrícula: {funcionario.matricula}, Salário: R$ {funcionario.calcular_salario()}")
         elif isinstance(funcionario, Mensalista):
             print(f"Mensalista criado: {funcionario.nome}, Matrícula: {funcionario.matricula}, Salário: R$ {funcionario.calcular_salario()}")
-
-    # threading.Thread(target=run_interface).start()
+            
     app_path = r"C:\Users\matutino\Desktop\entrega\bot-tkinter-atividade-13\interface.py"
     subprocess.Popen(["python", app_path]) 
+
 
     for funcionario in funcionarios:
         if not bot.find("campo_nome", matching=0.97, waiting_time=10000):
